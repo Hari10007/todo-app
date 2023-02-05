@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Table from 'react-bootstrap/Table';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
   const [todo, setTodo] = useState("")
   const [arr, setArr] = useState([])
-
+  const [error,setError]=useState('')
+  
   const inputFocus= useRef()
   const ref = useRef(0)
+  console.log(arr);
 
   const submit = ()=>{
     inputFocus.current.focus()
@@ -22,17 +24,19 @@ function App() {
       })}
       if (ref.current === 0){
         setArr([...arr, {id: Date.now(), text: todo, status: false}])
+        setError(" ")
       }
       else{
-        alert("List already present")
+        setError("List already present")
       }
       inputFocus.current.value = ""
     }
   }
+  
   return (
     <div className="app">
       <div className="mainHeading">
-        <h1>ToDo List</h1>
+        <h1>To Do App</h1>
       </div>
 
       <div className="input">
@@ -42,62 +46,49 @@ function App() {
         placeholder="Add item..." />
         <i className="far fa-paper-plane" onClick={ submit }></i>
       </div>
-      {/* { arr.map((obj)=>{
-        return(
-          <div className="todos">
-            <div className="todo">
-              <div className="left">
-                <input 
-                type="checkbox"
-                onChange={(e)=>{
-                  setTodo(arr.filter(obj2=>{
-                    if (obj2.id === obj.id ){
-                      obj2.status = e.target.checked
-                    }
-                    return obj2
-                  }))}}
-                value={obj.status}/>
-                <p>{obj.text}</p>
-                <p>{obj.status}</p>
-              </div>
-              <div className="right">
-                <i className="far fa-trash-alt"></i>
-              </div>
-            </div>
-          </div>
-        )
-      })} */}
-      
+      <p style={{color:'#ff0000', textAlign: 'center'}}>{error?error:''}</p>
+    
       <br />
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>SL No</th>
-            <th>To Do </th>
-            <th>Created At</th>
-            <th></th>
-          </tr>
-        </thead>
-        {arr.map((obj, index)=>{
-            if (arr.size !== 0){
-              return(
-                <tbody>
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{obj.text}</td>
-                    <td>{obj.id}</td>
-                    <td><i className="far fa-trash-alt"
-                      onClick={(e)=>{
-                      setArr(arr.filter(obj2=> obj2.id !== obj.id)
-                      )}}></i></td>
-                  </tr>
-                </tbody>
-              )
-            }else{
-              return(<h5>List is empty</h5>)
-            }
-        })}
-      </Table>
+      {arr.length !== 0 && 
+        <Table striped bordered hover id='customers'>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>To Do </th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          {arr.map((obj, index)=>{
+              if (arr.size !== 0){
+                return(
+                  <tbody key={index}>
+                    <tr>
+                      <td><input 
+                          type="checkbox"
+                          onChange={(e)=>{
+                            setTodo(arr.filter(obj2=>{
+                              if (obj2.id === obj.id ){
+                                obj2.status = e.target.checked
+                              }
+                              return obj2
+                            }))}}
+                          value={obj.status? "checked" : ""}/></td>
+                      <td>{obj.text}</td>
+                      <td>{new Date(obj.id).toLocaleString()}</td>
+                      <td><i className="far fa-trash-alt"
+                        onClick={(e)=>{
+                        setArr(arr.filter(obj2=> obj2.id !== obj.id)
+                        )}}></i></td>
+                    </tr>
+                  </tbody>
+                )
+              }else{
+                return(<h5>List is empty</h5>)
+              }
+          })}
+        </Table>
+      }   
     </div>
   );
 }

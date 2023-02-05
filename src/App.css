@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #1c216a;
+  background-color: #298e61;
 }
 
 .app {
@@ -31,7 +31,7 @@ h2 {
 
 .app .input {
   margin-top: 0.8em;
-  width: 20em;
+  width: 50em;
   height: 2em;
   background-color: white;
   display: flex;
@@ -43,7 +43,7 @@ h2 {
 
 .app .input input {
   width: 100%;
-  height: 1.6em;
+  height: 1.9em;
   border-color: transparent;
   outline-color: transparent;
 }
@@ -55,6 +55,11 @@ h2 {
   color: grey;
   margin-right: 5px;
 }
+
+.app p {
+  font-size: larger;
+  font-weight: 500;
+}
 .app .todos {
   display: flex;
   justify-content: center;
@@ -65,7 +70,7 @@ h2 {
   margin-top: 0.8em;
   width: 20em;
   height: 2em;
-  background-color: white;
+  background-color: rgb(45, 63, 47);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,4 +89,27 @@ h2 {
   font-weight: 700;
   font-style: normal;
   color: grey;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #000805;
+  color: white;
 }
